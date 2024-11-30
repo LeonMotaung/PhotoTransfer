@@ -1,0 +1,237 @@
+mongodb+srv://smetchappy:Egd8lV7C8J5mcymM@backeddb.pmksk.mongodb.net/Node-API?retryWrites=true&w=majority&appName=BackedDB
+
+
+
+
+const express = require('express');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const session = require('express-session');
+const path = require('path');
+const multer = require('multer');
+const fs = require('fs');
+const app = express();
+
+// Set up upload directory and file filter using multer
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      const uploadDir = path.join(__dirname, 'public', 'uploads');
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
+      cb(null, uploadDir);
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+      cb(null, uniqueSuffix + path.extname(file.originalname));
+    }
+  }),
+  limits: { fileSize: 5 * 1024 * 1024 },  // 5MB file limit
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type. Only JPEG, PNG, and GIF are allowed.'));
+    }
+  }
+});
+
+// MongoDB models
+const imageSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  title: { type: String, required: true },
+  description: String,
+  imagePath: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now }
+});
+
+const Image = mongoose.model('Image', imageSchema);
+
+const userSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true, trim: true },
+  password: { type: String, required: true },
+  email: { type: String, required: true, unique: true, trim: true, lowercase: true },
+  instagram: { type: String, trim: true },
+  facebook: { type: String, trim: true },
+  age: { type: Number, required: true },
+  address: {
+    street: { type: String, required: true },
+    suburb: { type: String, required: true },
+    city: { type: String, required: true },
+    postalCode: { type: String, required: true }
+  },
+  createdAt: { type: Date, default: Date.now }
+});
+
+// Hash password before saving
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+
+// Method to compare passwords
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
+};
+
+const User = mongoose.model('User', userSchema);
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(session({
+  secret: 'your_secret_key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } // Use true if you're on HTTPS
+}));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static('public/uploads'));
+
+// MongoDB connection
+mongoose.connect('mongodb://localhost:27017/ByteBurst', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('MongoDB connection error:', err));
+
+// Routes
+app.get('/', (req, res) => {
+  res.render('index', { title: 'ByteBurst - Home' });
+});
+
+app.get('/signup', (req, res) => {
+  res.render('signup', { title: 'Sign Up' });
+});
+
+app.get('/signin', (req, res) => {
+  res.render('signin', { title: 'Sign In' });
+});
+
+app.get('/about', (req, res) => {
+  res.render('about', { title: 'About US' });
+});
+
+app.get('/contact', (req, res) => {
+  res.render('contact', { title: 'Contact US' });
+});
+
+app.get('/photo', (req, res) => {
+  res.render('photo', { title: 'Upload Photo' });
+});
+
+// Sign Up Route
+app.post('/signup', async (req, res) => {
+  const {
+    username, email, password, confirmPassword,
+    instagram, facebook, age, street, suburb, city, postalCode
+  } = req.body;
+
+  // Password validation
+  if (password !== confirmPassword) {
+    return res.render('signup', { title: 'Sign Up', error: 'Passwords do not match.' });
+  }
+
+  try {
+    const user = new User({
+      username, email, password, instagram, facebook, age,
+      address: { street, suburb, city, postalCode }
+    });
+
+    await user.save();
+
+    req.session.isLoggedIn = true;
+    req.session.userId = user._id;
+
+    res.redirect('/signin');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error creating user. Please ensure all fields are correctly filled.');
+  }
+});
+
+// Sign In Route
+app.post('/signin', async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(400).send('Invalid email or password');
+  }
+
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    return res.status(400).send('Invalid email or password');
+  }
+
+  req.session.userId = user._id;
+  res.redirect('/dashboard');
+});
+
+// Photo Upload Route
+app.post('/photo', upload.single('image'), async (req, res) => {
+  if (!req.session.userId) {
+    return res.redirect('/signin');
+  }
+
+  try {
+    const { title, description } = req.body;
+
+    if (!req.file) {
+      return res.redirect('/photo?error=No image uploaded');
+    }
+
+    const newImage = new Image({
+      userId: req.session.userId,
+      title: title || 'Untitled',
+      description: description || '',
+      imagePath: '/uploads/' + req.file.filename
+    });
+
+    await newImage.save();
+    res.redirect('/photo?success=Image uploaded successfully');
+  } catch (error) {
+    console.error('Upload error:', error);
+    res.redirect('/photo?error=Error uploading image');
+  }
+});
+
+// Dashboard Route
+app.get('/dashboard', async (req, res) => {
+  if (!req.session.userId) {
+    return res.redirect('/signin');
+  }
+
+  const user = await User.findById(req.session.userId);
+  if (!user) {
+    return res.redirect('/signin');
+  }
+
+  const images = await Image.find({ userId: req.session.userId });
+
+  res.render('dashboard', { user, images });
+});
+
+// Logout Route
+app.post('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send('Error logging out.');
+    }
+    res.redirect('/signin');
+  });
+});
+
+// 404 Page
+app.use((req, res) => {
+  res.status(404).render('404', { title: 'Page Not Found' });
+});
+
+// Start Server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

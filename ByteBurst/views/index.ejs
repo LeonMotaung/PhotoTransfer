@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page Template - Technology</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+
+    .background-circles .circle {
+      position: absolute;
+      border-radius: 50%;
+      background-color: rgb(212, 255, 0);
+      opacity: 0.2;
+    }
+
+    .background-circles .circle.small {
+      width: 50px;
+      height: 50px;
+      bottom: 20px;
+      left: 20px;
+    }
+
+    .background-circles .circle.medium {
+      width: 100px;
+      height: 100px;
+      top: 20px;
+      right: 20px;
+    }
+
+    .background-circles .circle.large {
+      width: 150px;
+      height: 150px;
+      bottom: 50px;
+      right: 50px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="bg-black text-white fixed w-full z-10 top-0 shadow">
+    <div class="container mx-auto flex flex-wrap items-center justify-between py-4 px-4">
+        <!-- Logo -->
+        <div class="flex items-center gap-x-2">
+            <img src="/images/New Project.png" alt="Logo" class="w-10 h-10 rounded-full" />
+            <a href="/" class="text-white font-bold text-2xl lg:text-4xl">BYTEBURST</a>
+        </div>
+
+        <!-- Hamburger Menu for Mobile -->
+        <div class="block lg:hidden">
+            <button id="nav-toggle" class="text-white text-2xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Navigation Links -->
+        <div id="nav-content" class="hidden lg:flex lg:items-center w-full lg:w-auto">
+            <ul class="lg:flex items-center space-y-4 lg:space-y-0 lg:space-x-6">
+                <li><a href="/" class="hover:text-gray-400">HOME</a></li>
+                <li><a href="/about" class="hover:text-gray-400">ABOUT US</a></li>
+                <li><a href="/contact" class="hover:text-gray-400">CONTACT</a></li>
+                <li><a href="/signin" class="hover:text-gray-400">SIGN IN</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+  
+  <div class="header text-center mt-20 px-4">
+    <h1 class="font-montserrat text-3xl lg:text-6xl text-yellow-400">Welcome to<br />ByteBurst</h1>
+  </div>
+  
+  <div class="container mx-auto flex flex-col lg:flex-row items-center justify-center mt-10 lg:mt-20 px-4">
+    <div class="text-section text-center lg:text-left lg:w-1/2">
+        <h1 class="font-montserrat text-4xl lg:text-7xl text-center leading-tight">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-orange-400 to-red-500 animate-pulse">
+              One Picture
+            </span>
+            <br />
+            <span class="text-black font-bold italic">
+              A Thousand Stories
+            </span>
+            <br />
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-green-400 to-teal-400">
+              Just a Click Away
+            </span>
+          </h1>
+          
+      <p class="text-gray-400 mt-5">A dynamic and user-friendly platform designed for photographers, artists, and hobbyists to showcase and sell their pictures to a global audience. This website provides a seamless experience for creators to upload, categorize, and set prices for their images while offering buyers a visually appealing marketplace to discover and purchase high-quality photos.<button class="btn bg-yellow-400 text-black font-bold py-2 px-4 rounded mt-5 hover:bg-yellow-300">BUY NOW/SELL</button>
+      <div class="footer flex justify-center lg:justify-start gap-4 mt-5">
+        <i class="fab fa-instagram text-yellow-400 text-2xl"></i>
+        <i class="fab fa-facebook-f text-yellow-400 text-2xl"></i>
+        <i class="fab fa-twitter text-yellow-400 text-2xl"></i>
+        <i class="fab fa-whatsapp text-yellow-400 text-2xl"></i>
+      </div>
+    </div>
+    <div class="image-section mt-10 lg:mt-0 lg:ml-10 lg:w-1/2">
+      <img src="/images/leon.JPG" alt="Person listening to music with headphones" class="rounded-2xl max-w-full h-auto" />
+    </div>
+  </div>
+  
+  <div class="background-circles">
+    <div class="circle small"></div>
+    <div class="circle medium"></div>
+    <div class="circle large"></div>
+  </div>
+
+  <%- include('footer') %>
+
+<script>
+  document.getElementById('nav-toggle').onclick = function() {
+    document.getElementById("nav-content").classList.toggle("hidden");
+  };
+</script>
+
+</body>
+</html>

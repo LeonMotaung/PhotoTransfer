@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Roboto', sans-serif;
+        background-color: #000;
+        color: #fff;
+      }
+  
+      .background-circles .circle {
+        position: absolute;
+        border-radius: 50%;
+        background-color: rgb(212, 255, 0);
+        opacity: 0.2;
+      }
+  
+      .background-circles .circle.small {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        left: 20px;
+      }
+  
+      .background-circles .circle.medium {
+        width: 100px;
+        height: 100px;
+        top: 20px;
+        right: 20px;
+      }
+  
+      .background-circles .circle.large {
+        width: 150px;
+        height: 150px;
+        bottom: 50px;
+        right: 50px;
+      }
+    </style>
+  </head>
+<body>
+    <nav class="bg-black text-white fixed w-full z-10 top-0 shadow"></nav>
+        <div class="container mx-auto flex flex-wrap items-center justify-between py-4 px-4">
+            <div class="flex items-center gap-x-2">
+                <img src="/images/New Project.png" alt="Logo" class="w-10 h-10 rounded-full" />
+                <a href="/" class="text-white font-bold text-2xl lg:text-4xl">BYTEBURST</a>
+            </div>
+
+            <!-- Hamburger Menu for Mobile -->
+            <div class="block lg:hidden">
+                <button id="nav-toggle" class="text-white text-2xl focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Navigation Links -->
+            <div id="nav-content" class="hidden lg:flex lg:items-center w-full lg:w-auto">
+                <ul class="lg:flex items-center space-y-4 lg:space-y-0 lg:space-x-6">
+                    <li><a href="/" class="hover:text-gray-400">HOME</a></li>
+                    <li><a href="/about" class="hover:text-gray-400">ABOUT US</a></li>
+                    <li><a href="/contact" class="hover:text-gray-400">CONTACT</a></li>
+                    <li><a href="/signin" class="hover:text-gray-400">SIGN IN</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="flex flex-col items-center justify-center min-h-screen text-center px-4">
+        <h1 class="text-8xl font-bold text-yellow-400 mb-4">404</h1>
+        <p class="text-3xl text-gray-300 mb-8">Oops! The page you are looking for does not exist.</p>
+        <a href="/" class="text-xl bg-yellow-400 text-black font-bold py-3 px-6 rounded-lg hover:bg-yellow-300 transition-colors duration-300">
+            Go back to the homepage
+        </a>
+    </div>
+    <%- include('footer') %>
+</body>
+</html>

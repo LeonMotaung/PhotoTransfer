@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+
+        .background-circles .circle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgb(212, 255, 0);
+            opacity: 0.2;
+        }
+
+        .background-circles .circle.small {
+            width: 50px;
+            height: 50px;
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .background-circles .circle.medium {
+            width: 100px;
+            height: 100px;
+            top: 20px;
+            right: 20px;
+        }
+
+        .background-circles .circle.large {
+            width: 150px;
+            height: 150px;
+            bottom: 50px;
+            right: 50px;
+        }
+    </style>
+</head>
+<body class="relative">
+    <nav class="bg-black text-white fixed w-full z-10 top-0 shadow">
+        <div class="container mx-auto flex flex-wrap items-center justify-between py-4 px-4">
+          <!-- Logo and Image Section -->
+          <div class="flex items-center gap-x-2">
+            <!-- Add the Image -->
+            <img src="/images/New Project.png" class="w-10 h-10 rounded-full" />
+            <!-- BYTEBURST Text -->
+            <a href="/" class="text-white font-bold text-2xl lg:text-4xl">BYTEBURST</a>
+          </div>
+      
+          <!-- Hamburger Menu for Mobile -->
+          <div class="block lg:hidden">
+            <button id="nav-toggle" class="text-white text-2xl focus:outline-none">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+      
+          <!-- Navigation Links -->
+          <div id="nav-content" class="hidden lg:flex lg:items-center w-full lg:w-auto">
+            <ul class="lg:flex items-center space-y-4 lg:space-y-0 lg:space-x-6">
+              <li><a href="/" class="hover:text-gray-400">HOME</a></li>
+              <li><a href="/about" class="hover:text-gray-400">ABOUT US</a></li>
+              <li><a href="/contact" class="hover:text-gray-400">CONTACT</a></li>
+              <li><a href="/signin" class="hover:text-gray-400">SIGN IN</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav> 
+    <!-- Background Circles -->
+    <div class="background-circles">
+        <div class="circle small"></div>
+        <div class="circle medium"></div>
+        <div class="circle large"></div>
+    </div>
+
+    <!-- Rest of your content with some style updates -->
+    <!-- Navbar -->
+    <nav class="bg-black text-white fixed w-full z-10 top-0 shadow">
+        <!-- ... navbar content remains the same ... -->
+    </nav>
+
+    <!-- Donation Section - Updated with new styling -->
+    <div class="flex justify-center items-center min-h-screen bg-transparent text-white pt-20 relative z-[1]">
+        <div class="w-full max-w-2xl p-8 bg-gray-800/80 backdrop-blur-sm rounded-lg shadow-lg m-4">
+            <h2 class="text-3xl font-bold mb-6 text-center text-yellow-400">Support ByteBurst</h2>
+            
+            <div class="text-center mb-8">
+                <p class="text-gray-300 mb-4">Your donation helps us maintain and improve our platform for photographers worldwide.</p>
+                
+                <!-- Donation Amount Selection -->
+                <div class="grid grid-cols-3 gap-4 mb-8">
+                    <button onclick="setAmount(5)" class="py-2 px-4 bg-gray-700/80 rounded-lg hover:bg-yellow-400 hover:text-black transition-colors duration-300 focus:ring-2 focus:ring-yellow-400">$5</button>
+                    <button onclick="setAmount(10)" class="py-2 px-4 bg-gray-700/80 rounded-lg hover:bg-yellow-400 hover:text-black transition-colors duration-300 focus:ring-2 focus:ring-yellow-400">$10</button>
+                    <button onclick="setAmount(20)" class="py-2 px-4 bg-gray-700/80 rounded-lg hover:bg-yellow-400 hover:text-black transition-colors duration-300 focus:ring-2 focus:ring-yellow-400">$20</button>
+                </div>
+
+                <!-- Custom Amount Input -->
+                <div class="mb-8">
+                    <label for="custom-amount" class="block text-gray-300 mb-2">Or enter custom amount:</label>
+                    <input 
+                        type="number" 
+                        id="custom-amount" 
+                        class="w-full max-w-xs px-4 py-2 rounded-lg bg-gray-700/80 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                        placeholder="Enter amount in USD"
+                        min="1"
+                    />
+                </div>
+
+                <!-- PayPal Button Container -->
+                <div id="paypal-button-container" class="max-w-sm mx-auto"></div>
+            </div>
+
+            <!-- Benefits Section -->
+            <div class="mt-8 border-t border-gray-700/50 pt-8">
+                <h3 class="text-xl font-bold mb-4 text-yellow-400">Your Support Helps Us:</h3>
+                <ul class="space-y-2 text-gray-300">
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-yellow-400 mr-2"></i>
+                        Maintain and improve our platform
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-yellow-400 mr-2"></i>
+                        Support emerging photographers
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-yellow-400 mr-2"></i>
+                        Develop new features
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-yellow-400 mr-2"></i>
+                        Keep our community thriving
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Your existing scripts -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('nav-toggle').onclick = function() {
+            document.getElementById("nav-content").classList.toggle("hidden");
+        };
+
+        let selectedAmount = 5; // Default amount
+
+        function setAmount(amount) {
+            selectedAmount = amount;
+            document.getElementById('custom-amount').value = amount;
+        }
+
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                const customAmount = document.getElementById('custom-amount').value;
+                const finalAmount = customAmount || selectedAmount;
+                
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: finalAmount
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Transaction completed by ' + details.payer.name.given_name);
+                    // You can add additional handling here
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
+<footer class="bg-black text-white mt-20 py-10">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <!-- Company Info -->
+        <div>
+          <h3 class="text-yellow-400 font-bold text-xl mb-4">ByteBurst</h3>
+          <p class="text-gray-400">Your premier destination for buying and selling exceptional photographs.</p>
+        </div>
+        <!-- Quick Links -->
+        <div>
+          <h3 class="text-yellow-400 font-bold text-xl mb-4">Quick Links</h3>
+          <ul class="text-gray-400">
+            <li class="mb-2"><a href="/" class="hover:text-yellow-400">Home</a></li>
+            <li class="mb-2"><a href="/about" class="hover:text-yellow-400">About Us</a></li>
+            <li class="mb-2"><a href="/contact" class="hover:text-yellow-400">Contact</a></li>
+            <li class="mb-2"><a href="/signin" class="hover:text-yellow-400">Sign In</a></li>
+          </ul>
+        </div>
+        <!-- Contact Info -->
+        <div>
+          <h3 class="text-yellow-400 font-bold text-xl mb-4">Contact Us</h3>
+          <ul class="text-gray-400">
+            <li class="mb-2"><i class="fas fa-envelope mr-2"></i>smetch@gmail.com</li>
+            <li class="mb-2"><i class="fas fa-phone mr-2"></i>+27 84 866 2418</li>
+            <li class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i>Belhar, Cape Town 7493</li>
+          </ul>
+        </div>
+        <!-- Newsletter -->
+        <div>
+          <h3 class="text-yellow-400 font-bold text-xl mb-4">Newsletter</h3>
+          <p class="text-gray-400 mb-4">Subscribe to our newsletter for updates</p>
+          <div class="flex">
+            <input type="email" placeholder="Enter your email" class="bg-gray-800 text-white px-4 py-2 rounded-l focus:outline-none">
+            <button class="bg-yellow-400 text-black px-4 py-2 rounded-r hover:bg-yellow-300">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2024 ByteBurst. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  </body>
+  </html>

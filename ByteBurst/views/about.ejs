@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+
+        .background-circles .circle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgb(212, 255, 0);
+            opacity: 0.2;
+        }
+
+        .background-circles .circle.small {
+            width: 50px;
+            height: 50px;
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .background-circles .circle.medium {
+            width: 100px;
+            height: 100px;
+            top: 20px;
+            right: 20px;
+        }
+
+        .background-circles .circle.large {
+            width: 150px;
+            height: 150px;
+            bottom: 50px;
+            right: 50px;
+        }
+    </style>
+</head>
+<body class="relative">
+    <!-- Background Circles -->
+    <div class="background-circles">
+        <div class="circle small"></div>
+        <div class="circle medium"></div>
+        <div class="circle large"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-black text-white fixed w-full z-10 top-0 shadow">
+        <div class="container mx-auto flex flex-wrap items-center justify-between py-4 px-4">
+            <div class="flex items-center gap-x-2">
+                <img src="/images/New Project.png" alt="Logo" class="w-10 h-10 rounded-full" />
+                <a href="/" class="text-white font-bold text-2xl lg:text-4xl">BYTEBURST</a>
+            </div>
+
+            <!-- Hamburger Menu for Mobile -->
+            <div class="block lg:hidden">
+                <button id="nav-toggle" class="text-white text-2xl focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Navigation Links -->
+            <div id="nav-content" class="hidden lg:flex lg:items-center w-full lg:w-auto">
+                <ul class="lg:flex items-center space-y-4 lg:space-y-0 lg:space-x-6">
+                    <li><a href="/" class="hover:text-gray-400">HOME</a></li>
+                    <li><a href="/about" class="hover:text-gray-400">ABOUT US</a></li>
+                    <li><a href="/contact" class="hover:text-gray-400">CONTACT</a></li>
+                    <li><a href="/signin" class="hover:text-gray-400">SIGN IN</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Us Section -->
+    <div class="min-h-screen bg-transparent text-white pt-20 px-6 relative z-[1]">
+        <div class="container mx-auto">
+            <h1 class="text-4xl lg:text-6xl font-bold text-center text-yellow-400 mb-8">About Us</h1>
+            <p class="text-center text-gray-300 mt-4 max-w-3xl mx-auto leading-relaxed">
+                At BYTEBURST, we believe in empowering creativity through technology. Our mission is to provide a platform for creators to share, sell, and connect with a global audience. With cutting-edge tools and an intuitive user experience, we strive to make your creative journey seamless and rewarding.
+            </p>
+
+            <!-- Our Values Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-16">
+                <div class="bg-gray-800/80 backdrop-blur-sm p-8 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-lightbulb text-yellow-400 text-4xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-yellow-400 text-center mb-4">Innovation</h3>
+                    <p class="text-gray-300 text-center">
+                        We constantly innovate to bring the best tools and features for our users.
+                    </p>
+                </div>
+                <div class="bg-gray-800/80 backdrop-blur-sm p-8 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-paint-brush text-yellow-400 text-4xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-yellow-400 text-center mb-4">Creativity</h3>
+                    <p class="text-gray-300 text-center">
+                        Fostering creativity is at the heart of everything we do.
+                    </p>
+                </div>
+                <div class="bg-gray-800/80 backdrop-blur-sm p-8 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-users text-yellow-400 text-4xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-yellow-400 text-center mb-4">Community</h3>
+                    <p class="text-gray-300 text-center">
+                        We aim to build a strong, supportive community of creators and enthusiasts.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Team Section -->
+            <div class="mt-20">
+                <h2 class="text-3xl lg:text-4xl font-bold text-center text-yellow-400 mb-12">Our Team</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-gray-800/80 backdrop-blur-sm p-6 rounded-lg text-center">
+                        <img src="/images/leon.JPG" alt="Team Member" class="rounded-full mx-auto mb-4 w-32 h-32 object-cover" />
+                        <h3 class="text-xl font-bold text-yellow-400">Motaung Leon</h3>
+                        <p class="text-gray-300">Founder & CEO</p>
+                    </div>
+                    <div class="bg-gray-800/80 backdrop-blur-sm p-6 rounded-lg text-center">
+                        <img src="/images/leon.JPG" alt="Team Member" class="rounded-full mx-auto mb-4 w-32 h-32 object-cover" />
+                        <h3 class="text-xl font-bold text-yellow-400">Leon Motaung</h3>
+                        <p class="text-gray-300">Lead Developer</p>
+                    </div>
+                    <div class="bg-gray-800/80 backdrop-blur-sm p-6 rounded-lg text-center">
+                        <img src="/images/leon.JPG" alt="Team Member" class="rounded-full mx-auto mb-4 w-32 h-32 object-cover" />
+                        <h3 class="text-xl font-bold text-yellow-400">Leon Motaung</h3>
+                        <p class="text-gray-300">Design Lead</p>
+                    </div>
+                    <div class="bg-gray-800/80 backdrop-blur-sm p-6 rounded-lg text-center">
+                        <img src="/images/leon.JPG" alt="Team Member" class="rounded-full mx-auto mb-4 w-32 h-32 object-cover" />
+                        <h3 class="text-xl font-bold text-yellow-400">Leon Motaung</h3>
+                        <p class="text-gray-300">Marketing Director</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="bg-black text-white mt-20 py-10">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <!-- Company Info -->
+          <div>
+            <h3 class="text-yellow-400 font-bold text-xl mb-4">ByteBurst</h3>
+            <p class="text-gray-400">Your premier destination for buying and selling exceptional photographs.</p>
+          </div>
+          <!-- Quick Links -->
+          <div>
+            <h3 class="text-yellow-400 font-bold text-xl mb-4">Quick Links</h3>
+            <ul class="text-gray-400">
+              <li class="mb-2"><a href="/" class="hover:text-yellow-400">Home</a></li>
+              <li class="mb-2"><a href="/about" class="hover:text-yellow-400">About Us</a></li>
+              <li class="mb-2"><a href="/contact" class="hover:text-yellow-400">Contact</a></li>
+              <li class="mb-2"><a href="/signin" class="hover:text-yellow-400">Sign In</a></li>
+              
+            </ul>
+          </div>
+          <!-- Contact Info -->
+          <div>
+            <h3 class="text-yellow-400 font-bold text-xl mb-4">Contact Us</h3>
+            <ul class="text-gray-400">
+              <li class="mb-2"><i class="fas fa-envelope mr-2"></i>smetch@gmail.com</li>
+              <li class="mb-2"><i class="fas fa-phone mr-2"></i>+27 84 866 2418</li>
+              <li class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i>Belhar, Cape Town 7493</li>
+            </ul>
+          </div>
+          <!-- Newsletter -->
+          <div>
+            <h3 class="text-yellow-400 font-bold text-xl mb-4">Newsletter</h3>
+            <p class="text-gray-400 mb-4">Subscribe to our newsletter for updates</p>
+            <div class="flex">
+              <input type="email" placeholder="Enter your email" class="bg-gray-800 text-white px-4 py-2 rounded-l focus:outline-none">
+              <button class="bg-yellow-400 text-black px-4 py-2 rounded-r hover:bg-yellow-300">Subscribe</button>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+          <p>&copy; 2024 ByteBurst. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+    
+    <script>
+      document.getElementById('nav-toggle').onclick = function() {
+        document.getElementById("nav-content").classList.toggle("hidden");
+      };
+    </script>
+    
+    </body>
+    </html>
